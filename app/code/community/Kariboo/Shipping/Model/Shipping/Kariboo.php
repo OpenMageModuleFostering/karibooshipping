@@ -33,11 +33,18 @@ class Kariboo_Shipping_Model_Shipping_Kariboo extends Mage_Shipping_Model_Carrie
         $method = Mage::getModel('shipping/rate_result_method');
         $result = Mage::getModel('shipping/rate_result');
 
+        // Calculate subtotal incl. VAT
+        $subtotalInclVat = 0;
+        $items = $quote->getAllItems();
+        foreach ($items as $item) {
+            $subtotalInclVat += $item->getRowTotalInclTax();
+        }
+
         if (!$this->getConfigData('rate_type')) {
             $price = $this->getConfigData('flat_rate_price');
             if ($request->getFreeShipping() === true ||
                 (Mage::getStoreConfig('carriers/' . $this->_code . '/free_shipping') &&
-                    $request->getPackageValue() >= Mage::getStoreConfig('carriers/' . $this->_code . '/free_shipping_from'))) {
+                    $subtotalInclVat >= Mage::getStoreConfig('carriers/' . $this->_code . '/free_shipping_from'))) {
                 $price = 0;
             }
         } else {
@@ -62,12 +69,12 @@ class Kariboo_Shipping_Model_Shipping_Kariboo extends Mage_Shipping_Model_Carrie
                         $freePackageValue += $item->getBaseRowTotal();
                     }
                 }
-                $oldValue = $request->getPackageValue();
+                $oldValue = $subtotalInclVat;
                 $request->setPackageValue($oldValue - $freePackageValue);
             }
 
             if ($freePackageValue) {
-                $request->setPackageValue($request->getPackageValue() - $freePackageValue);
+                $request->setPackageValue($subtotalInclVat - $freePackageValue);
             }
 
             $conditionName = $this->getConfigData('table_rate_condition');
