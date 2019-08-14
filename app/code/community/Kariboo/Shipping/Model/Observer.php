@@ -99,8 +99,8 @@ class Kariboo_Shipping_Model_Observer
     {
         $checkoutSession = Mage::getSingleton('checkout/session');
         $shippingAddress = $checkoutSession->getQuote()->getShippingAddress();
-        if (((bool)$shippingAddress->getSameAsBilling() && $observer->getEvent()->getName() == "controller_action_postdispatch_checkout_onepage_saveBilling") ||
-            $observer->getEvent()->getName() == "controller_action_postdispatch_checkout_onepage_saveShipping"
+        if (((bool)$shippingAddress->getSameAsBilling() && strtolower($observer->getEvent()->getName()) == "controller_action_postdispatch_checkout_onepage_savebilling") ||
+            strtolower($observer->getEvent()->getName()) == "controller_action_postdispatch_checkout_onepage_saveshipping"
         ) {
             $karibooOriginalShippingAddress = new Varien_Object();
             $karibooOriginalShippingAddress
