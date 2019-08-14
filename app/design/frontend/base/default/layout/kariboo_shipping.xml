@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<layout>
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addJs">
+                <script>kariboo/shipping/checkout.js</script>
+            </action>
+            <action method="addJs">
+                <script>prototype/window.js</script>
+            </action>
+            <action method="addCss">
+                <name>css/kariboo/window.css</name>
+            </action>
+            <block type="core/template" name="gmapsapi" template="kariboo/shipping/gmapsapi.phtml"/>
+        </reference>
+    </checkout_onepage_index>
+    <kariboo_ajax_getwindow>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/empty.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="kariboo_shipping/carrier_kariboo" name="kariboo" template="kariboo/shipping/kariboo_checkout_spots.phtml"/>
+        </reference>
+    </kariboo_ajax_getwindow>
+</layout>

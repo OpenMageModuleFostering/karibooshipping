@@ -1,0 +1,58 @@
+<?php
+/**
+ * Created by PHPro
+ *
+ * @package      Kariboo
+ * @subpackage   Shipping
+ * @category     Checkout
+ * @author       PHPro (info@phpro.be)
+ */
+
+$suggested_spot = $this->getResult();
+if ($suggested_spot == null) {
+    $suggested_spot_json = null;
+} else {
+    $suggested_spot->days = Mage::helper('kariboo_shipping')->getJsDaysArray();
+    $suggested_spot_json = json_encode($suggested_spot);
+}
+$settings = array(
+    "display" => Mage::getStoreConfig("carriers/kariboo/google_maps_display"),
+    "list" => Mage::getStoreConfig("carriers/kariboo/google_maps_enable_list"),
+    "width" => Mage::getStoreConfig("carriers/kariboo/google_maps_width"),
+    "height" => Mage::getStoreConfig("carriers/kariboo/google_maps_height"),
+    "default_selected" => Mage::getStoreConfig("carriers/kariboo/default_selected"),
+    "imgpath" => DS . "skin" . DS . "frontend" . DS . "base" . DS . "default" . DS . "images" . DS . "kariboo" . DS,
+    "label_click" => Mage::helper('kariboo_shipping')->__("Click here to select your Kariboo!-spot"),
+    "label_change" => Mage::helper('kariboo_shipping')->__("Click here to change your Kariboo!-spot"),
+    "label_openafter" => Mage::helper('kariboo_shipping')->__("Open after 16h"),
+    "label_opensund" => Mage::helper('kariboo_shipping')->__("Open Sunday"),
+    "label_filter" => Mage::helper('kariboo_shipping')->__("Filter"),
+    "label_select" => Mage::helper('kariboo_shipping')->__("Select"),
+    "label_postcode" => Mage::helper('kariboo_shipping')->__("Postal code"),
+    'label_loading' => Mage::helper('kariboo_shipping')->__("Loading please wait.."),
+    'base_url' => Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true)
+);
+$message = $settings['label_click'];
+?>
+<div id="kariboospots" class="kariboospotswrapper">
+    <div id="karibooinfo"></div>
+    <?php if ($suggested_spot != null) { ?>
+        <p class="samespot"><?php echo Mage::helper('kariboo_shipping')->__('Based on your previous order, we already selected the same Kariboo!-spot for you:'); ?></p>
+        <?php $message = $settings['label_change'] ?>
+    <?php } ?>
+    <div id="karibooresult"><?php echo $suggested_spot_json ?></div>
+    <a href="#" id="showspots"><?php echo $message ?></a>
+    <input type="hidden" name="kariboo[spotid]" class="validate-kariboospot"/>
+    <input type="hidden" name="kariboo[street]"/>
+    <input type="hidden" name="kariboo[city]"/>
+    <input type="hidden" name="kariboo[postcode]"/>
+    <input type="hidden" name="kariboo[country]"/>
+    <input type="hidden" name="kariboo[name]"/>
+    <input type="hidden" name="kariboo[cod]"/>
+</div>
+<script type="text/javascript">
+    window.karibooShipping = new Kariboo.Shipping(<?php echo json_encode($settings); ?>);
+    Validation.add('validate-kariboospot', '<?php echo Mage::helper('kariboo_shipping')->__('Please select a Kariboo!-spot'); ?>', function (v) {
+        return !($('s_method_kariboo_kariboo').checked && Validation.get('IsEmpty').test(v))
+    });
+</script>

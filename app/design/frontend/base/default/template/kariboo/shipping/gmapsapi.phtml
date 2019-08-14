@@ -1,0 +1,21 @@
+<?php
+/**
+ * Created by PHPro
+ *
+ * @package      Kariboo
+ * @subpackage   Shipping
+ * @category     Checkout
+ * @author       PHPro (info@phpro.be)
+ */
+/**
+ * Import the api with or without key in header.
+ */
+?>
+<?php if (Mage::getStoreConfig('carriers/kariboo/google_maps_api') != ""): ?>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=<?php echo Mage::getStoreConfig('carriers/kariboo/google_maps_api') ?>&sensor=false&v=3.17&sensor=false&libraries=geometry"
+        type="text/javascript"></script>
+<?php else: ?>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&v=3.17&sensor=false&libraries=geometry" type="text/javascript"></script>
+<?php endif; ?>
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>

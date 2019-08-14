@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/karibooshipping",
+    "type": "magento-module",
+    "license": "OSL-v3.0",
+    "homepage": "",
+    "description": "Kariboo! Shipping",
+    "authors": [
+    {
+        "name": "PHPro",
+        "email": "info@phpro.be"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

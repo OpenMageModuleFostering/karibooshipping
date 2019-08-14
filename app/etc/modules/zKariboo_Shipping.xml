@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Kariboo_Shipping>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Kariboo_Shipping>
+    </modules>
+</config>
