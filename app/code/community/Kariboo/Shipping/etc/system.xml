@@ -48,6 +48,30 @@
                             <show_in_store>1</show_in_store>
                             <comment>Automatically selects this shipping method during checkout by default</comment>
                         </default_selected>
+                        <free_shipping translate="label">
+                            <label>Free shipping</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </free_shipping>
+                        <free_shipping_from translate="label tooltip">
+                            <label>.. from</label>
+                            <tooltip>If the order total exceeds this amount, no shipping costs will be charged.</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>48</sort_order>
+                            <depends>
+                                <free_shipping>1</free_shipping>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>
+                                <required-entry>1</required-entry>
+                            </validate>
+                        </free_shipping_from>
                         <rate_type translate="label">
                             <label>Rate type</label>
                             <frontend_type>select</frontend_type>

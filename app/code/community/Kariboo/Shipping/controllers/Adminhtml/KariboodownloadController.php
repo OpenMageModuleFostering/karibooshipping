@@ -36,4 +36,12 @@ class Kariboo_Shipping_Adminhtml_KariboodownloadController extends Mage_Adminhtm
             $this->getLayout()->createBlock('kariboo_shipping/adminhtml_sales_download_grid')->toHtml()
         );
     }
+
+    /**
+     * Check if user is allowed to use this controller
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('sales/kariboo/kariboo_downloads');
+    }
 }

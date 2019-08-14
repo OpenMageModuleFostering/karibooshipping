@@ -204,4 +204,13 @@ class Kariboo_Shipping_Adminhtml_KaribooorderController extends Mage_Adminhtml_C
             $this->_redirect('*/*/index');
         }
     }
+
+    /**
+     * Check if user is allowed to use this controller
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('sales/kariboo/kariboo_order');
+    }
+
 }

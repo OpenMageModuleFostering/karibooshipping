@@ -35,7 +35,9 @@ class Kariboo_Shipping_Model_Shipping_Kariboo extends Mage_Shipping_Model_Carrie
 
         if (!$this->getConfigData('rate_type')) {
             $price = $this->getConfigData('flat_rate_price');
-            if ($request->getFreeShipping() === true) {
+            if ($request->getFreeShipping() === true ||
+                (Mage::getStoreConfig('carriers/' . $this->_code . '/free_shipping') &&
+                    $request->getPackageValue() >= Mage::getStoreConfig('carriers/' . $this->_code . '/free_shipping_from'))) {
                 $price = 0;
             }
         } else {

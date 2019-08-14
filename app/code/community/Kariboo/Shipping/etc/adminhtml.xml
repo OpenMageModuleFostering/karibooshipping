@@ -30,6 +30,14 @@
                             <kariboo translate="title" module="kariboo_shipping">
                                 <title>Kariboo! Orders</title>
                                 <sort_order>20</sort_order>
+                                <children>
+                                    <kariboo_order>
+                                        <title>Orders</title>
+                                    </kariboo_order>
+                                    <kariboo_downloads>
+                                        <title>Downloads</title>
+                                    </kariboo_downloads>
+                                </children>
                             </kariboo>
                         </children>
                     </sales>
